@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddy Grupper | Outreach</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        h1, h2, h3, nav {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1.5rem 3rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+        }
+
+        nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: #2d5f3f;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        nav a:hover {
+            color: #5a9f6f;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #2d5f3f 0%, #234a33 100%);
+            color: white;
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            max-width: 1100px;
+            margin: -2rem auto 5rem;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #2d2d2d;
+        }
+
+        /* Featured Projects */
+        .featured-projects {
+            padding: 5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2d5f3f;
+            font-weight: 300;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e8f1eb 0%, #c8e6d3 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2d5f3f 0%, #8b7355 100%);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.6rem;
+            color: #2d5f3f;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-content p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid #5a9f6f;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            color: #1f4430;
+            border-color: #2d5f3f;
+        }
+
+        /* Presentations Section */
+        .presentations {
+            padding: 6rem 3rem;
+            background: linear-gradient(135deg, #f0f5f2 0%, #e8f1eb 100%);
+            position: relative;
+        }
+
+        .presentations::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: white;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+        }
+
+        .presentations-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .presentations p {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #4a4a4a;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.3rem;
+            color: #2d5f3f;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .video-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            text-align: left;
+            margin: 0;
+        }
+
+        /* Publications Section */
+        .publications {
+            padding: 6rem 3rem;
+            background: white;
+        }
+
+        .publications-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .publications-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .publications-list {
+            background: #fafafa;
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid #e8f1eb;
+        }
+
+        .publication-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e8f1eb;
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-item p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+        }
+
+        .publication-item a {
+            color: #2d5f3f;
+            text-decoration: none;
+            border-bottom: 1px solid #5a9f6f;
+            transition: all 0.3s;
+        }
+
+        .publication-item a:hover {
+            color: #1f4430;
+            border-color: #2d5f3f;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #999;
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        footer .contact-info {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: #5a9f6f;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #a8d5ba;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .presentations::before {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .intro-content {
+                padding: 2rem;
+            }
+
+            .project-content {
+                padding: 2rem;
+            }
+
+            .publications-list {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <h1>Maddy Grupper</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="outreach.html">Outreach</a></li>
+                <li><a href="life.html">Life</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Outreach</h2>
+        </div>
+    </div>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <p>The best research isn't just done well; it's communicated well. I believe there is power in stories and that storytelling is the most compelling form of human communication. By integrating my passions for storytelling and science, I can be a better conservationist.</p>
+        </div>
+    </section>
+
+    <section class="featured-projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Outreach_photo1.jpg" alt="Food Water Communities StoryMap">
+                </div>
+                <div class="project-content">
+                    <h3>Food, Water, and Communities</h3>
+                    <p>In 2019, my colleague and I created this ArcGIS StoryMap platform to address three key challenges in science communication: the tendency to portray communities as victims, the difficulty of grasping the global scope of climate impacts, and the lack of paid opportunities for student science writers.</p>
+                    <p>As co-creator, writer, and lead editor of this platform sponsored by The Center for Communicating Science at Virginia Tech, I helped scientists share stories from around the globe about communities whose food and water resources have been impacted by climate change. By focusing on communities rather than just science, we created a new, empathetic approach to science communication.</p>
+                    <a href="https://storymaps.arcgis.com/stories/b438bb7872864c798c414b31477f9e76" target="_blank" class="project-link">View StoryMap →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Outreach_photo2.jpg" alt="Science Communication Training">
+                </div>
+                <div class="project-content">
+                    <h3>Science Communication Training</h3>
+                    <p>Teaching researchers how to translate complex scientific findings into compelling narratives that resonate with diverse audiences. I've developed and led workshops including Three Minute Thesis (3MT) training for graduate students and ComSciCon workshops, helping scientists communicate their work effectively to policymakers, stakeholders, and the general public.</p>
+                    <p>Through these training programs, I help researchers develop storytelling skills that make their work accessible, memorable, and impactful beyond academic circles.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Outreach_photo3.jpg" alt="Stakeholder Engagement & Facilitation">
+                </div>
+                <div class="project-content">
+                    <h3>Stakeholder Engagement & Facilitation</h3>
+                    <p>Facilitating workshops and co-design exercises as part of my research methodology to learn from communities and integrate their knowledge into scientific research. This work goes beyond teaching—it's about creating spaces where stakeholders can share their expertise, values, and lived experiences that inform better research outcomes.</p>
+                    <p>Through facilitation techniques, I help bridge the gap between scientific inquiry and community wisdom, ensuring research addresses real-world needs and reflects diverse perspectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="spatial" class="presentations">
+        <div class="presentations-content">
+            <h2 class="section-title">Presentations & Talks</h2>
+            <p>Selected presentations showcasing my work in science communication, stakeholder engagement, and research storytelling.</p>
+
+            <div class="videos-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/4BfIwILr7K8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Nutshell Games 2019</h3>
+                        <p>A creative approach to communicating complex scientific concepts through storytelling and game design.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://video.vt.edu/media/ComSciCon+2020/0_iqjfpbl1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>ComSciCon 2020 Workshop</h3>
+                        <p>Leading a science communication workshop, teaching researchers how to make their work accessible and engaging.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/P3aR-uKYiXc?start=5341" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>3 Minute Thesis 2025</h3>
+                        <p>Distilling my doctoral research into a compelling three-minute presentation for a general audience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="publications">
+        <div class="publications-content">
+            <h2 class="section-title">Publications & Media</h2>
+            <p class="publications-intro">Selected articles, StoryMaps, and media features showcasing science communication work that bridges research and public engagement.</p>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <p>Grupper, M. March 2, 2021. "<a href="https://storymaps.arcgis.com/stories/7668f8704b364238ac2a32d2e59401b0" target="_blank">The Algal Bloom in Toledo, Ohio, USA, 2014</a>" - Food, Water, and Communities StoryMap</p>
+                </div>
+
+                <div class="publication-item">
+                    <p>Grupper, M. March 2, 2021. "<a href="https://storymaps.arcgis.com/stories/47823c04b2d34940b76d16c59dbf1648" target="_blank">Arsenic in San Rafael Las Flores, Guatemala, 2018</a>" - Food, Water, and Communities StoryMap</p>
+                </div>
+
+                <div class="publication-item">
+                    <p>Grupper, M. March 2, 2021. "<a href="https://storymaps.arcgis.com/stories/9f790778315b495f8b46ef1101ca0588" target="_blank">Oyster Fishery Collapse in Apalachicola, Florida, USA, 2013</a>" - Food, Water, and Communities StoryMap</p>
+                </div>
+
+                <div class="publication-item">
+                    <p>Grupper, M. March 2, 2021. "<a href="https://medium.com/the-scope-yale-scientific-magazines-online-blog/trust-might-be-one-of-the-most-valuable-resources-for-climate-change-adaptation-6a897d3bfffc" target="_blank">Trust Might be One of the Most Valuable Resources for Climate Change Adaptation</a>." Medium; The Scope - Yale Scientific.</p>
+                </div>
+
+                <div class="publication-item">
+                    <p><a href="http://www.virginiawaterradio.org/2021/02/episode-564-2-15-21-exploring-customers.html" target="_blank">Episode 564 (2-15-21): Exploring Customers' Trust in Their Water Utility</a> - Guest host for Virginia Water Radio, February 15, 2021.</p>
+                </div>
+
+                <div class="publication-item">
+                    <p>Grupper, M. February 8, 2016. "<a href="https://www.scienceinpublic.com.au/media-releases/a-galactic-conspiracy-disproven" target="_blank">A Galactic Conspiracy Disproven</a>." Science in Public. Written during position as Science Communicator at Science in Public.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a> |
+            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a> |
+            <a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a>
+        </div>
+        <p>&copy; 2025 Maddy Grupper. All rights reserved.</p>
+    </footer>
+</body>
+</html>

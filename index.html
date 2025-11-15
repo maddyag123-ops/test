@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddy Grupper | Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        h1, h2, h3, nav {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1.5rem 3rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+        }
+
+        nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: #2d5f3f;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        nav a:hover {
+            color: #5a9f6f;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #f0f5f2 0%, #e8f1eb 100%);
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,0 L100,0 L100,100 Z" fill="%232d5f3f" opacity="0.03"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: #2d5f3f;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            max-width: 800px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            max-width: 1200px;
+            margin: -3rem auto 5rem;
+            padding: 0 3rem;
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 4rem;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #2d2d2d;
+            margin-bottom: 2rem;
+        }
+
+        .cv-button {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
+        }
+
+        .cv-button:hover {
+            background: #1f4430;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
+        }
+
+        .social-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: #2d5f3f;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .social-links a:hover {
+            color: #5a9f6f;
+        }
+
+        .headshot-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            border: 4px solid #c8e6d3;
+        }
+
+        .headshot-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Approach Section */
+        .approach-section {
+            padding: 6rem 3rem;
+            position: relative;
+            background: linear-gradient(to bottom, #2d5f3f 0%, #234a33 100%);
+            clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            margin: 4rem 0;
+        }
+
+        .approach-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: white;
+        }
+
+        .approach-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3.5rem;
+        }
+
+        .approach-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .approach-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .approach-circle {
+            min-width: 120px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #c8e6d3;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 4px solid #c8e6d3;
+            padding: 4px;
+        }
+
+        .approach-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .approach-content {
+            flex: 1;
+            color: white;
+        }
+
+        .approach-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #c8e6d3;
+            font-weight: 600;
+        }
+
+        .approach-content h3 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .approach-content h3 a:hover {
+            color: white;
+        }
+
+        .approach-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .learn-more {
+            display: inline-block;
+            color: #c8e6d3;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #c8e6d3;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+            margin-right: 1rem;
+        }
+
+        .learn-more:hover {
+            color: white;
+            border-color: white;
+        }
+
+        /* Featured Project Section */
+        .featured-project {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 3rem;
+        }
+
+        .featured-project h2 {
+            font-size: 2.8rem;
+            color: #2d5f3f;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .project-showcase {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-showcase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            height: 100%;
+            min-height: 400px;
+            background: linear-gradient(135deg, #e8f1eb 0%, #c8e6d3 100%);
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-content h3 {
+            font-size: 2rem;
+            color: #2d5f3f;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            align-self: flex-start;
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
+        }
+
+        .project-link:hover {
+            background: #1f4430;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #f0f5f2 0%, #e8f1eb 100%);
+            padding: 5rem 3rem;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: #2d5f3f;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .contact-section p {
+            font-size: 1.15rem;
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section a {
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #5a9f6f;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+        }
+
+        .contact-section a:hover {
+            border-color: #2d5f3f;
+            color: #1f4430;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #999;
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        footer .contact-info {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: #5a9f6f;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #a8d5ba;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .approach-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .project-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .project-image {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 968px) {
+            nav .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .intro-section {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                text-align: center;
+                margin-top: 2rem;
+            }
+
+            .headshot-circle {
+                order: -1;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .approach-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 2rem;
+            }
+
+            .approach-section {
+                clip-path: none;
+                padding: 4rem 2rem;
+            }
+
+            .project-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <h1>Maddy Grupper</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="outreach.html">Outreach</a></li>
+                <li><a href="life.html">Life</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>exploring connections between humans and ecosystems</h2>
+        </div>
+    </div>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <p class="intro-text">I am a researcher, a scientific communicator, and a conservationist. I aim to combine natural and social science to understand conservation problems. Through communication, outreach, and storytelling, I position my work to help protect, preserve, and help others enjoy both wildlife and aquatic resources.</p>
+
+            <a href="Grupper_CV_2025.pdf" download class="cv-button">Download CV</a>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a>
+                <span style="color: #ccc;">|</span>
+                <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a>
+                <span style="color: #ccc;">|</span>
+                <a href="mailto:maddyag123@gmail.com">Email</a>
+            </div>
+        </div>
+        <div class="headshot-circle">
+            <img src="photos/Home_photo1.jpg" alt="Maddy Grupper">
+        </div>
+    </section>
+
+    <section class="approach-section">
+        <h2>My Approach</h2>
+        <div class="approach-grid">
+            <div class="approach-card">
+                <div class="approach-circle">
+                    <img src="photos/Home_photo2.jpg" alt="Field research">
+                </div>
+                <div class="approach-content">
+                    <h3><a href="research.html">Interdisciplinary Research</a></h3>
+                    <p>Combining natural and social sciences to understand the full picture of conservation challenges and opportunities.</p>
+                    <a href="research.html" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+
+            <div class="approach-card">
+                <div class="approach-circle">
+                    <img src="photos/Home_photo3.jpg" alt="Science communication">
+                </div>
+                <div class="approach-content">
+                    <h3><a href="outreach.html">Outreach</a></h3>
+                    <p>Working directly with communities to ensure research addresses real-world needs and values, while translating complex findings into accessible stories that drive impact.</p>
+                    <a href="outreach.html" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+
+            <div class="approach-card">
+                <div class="approach-circle">
+                    <img src="photos/Home_photo4.jpg" alt="GIS mapping">
+                </div>
+                <div class="approach-content">
+                    <h3>Spatial Analysis</h3>
+                    <p>Using GIS and spatial modeling to visualize and understand ecological and social patterns, feeding into both research insights and communication tools.</p>
+                    <a href="research.html#spatial" class="learn-more">Research Applications →</a>
+                    <a href="outreach.html#spatial" class="learn-more">Outreach Applications →</a>
+                </div>
+            </div>
+
+            <div class="approach-card">
+                <div class="approach-circle">
+                    <img src="photos/Home_photo5.jpg" alt="Rock climbing">
+                </div>
+                <div class="approach-content">
+                    <h3><a href="life.html">Beyond the Research</a></h3>
+                    <p>Scientists are multidimensional people. Explore how climbing, adventure, and curiosity beyond the lab shape my approach to conservation work.</p>
+                    <a href="life.html" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-project">
+        <h2>Featured Project</h2>
+        <div class="project-showcase">
+            <div class="project-image">
+                <img src="photos/Home_photo6.jpg" alt="Goulburn-Broken River research">
+            </div>
+            <div class="project-content">
+                <h3>Integrating Values into Water Management</h3>
+                <p>My doctoral research develops innovative methods to integrate stakeholder values into water management decision-making tools for the Goulburn-Broken River Catchment in Australia. By bridging the gap between what communities care about and how managers make decisions, this work creates pathways for more inclusive, effective water governance.</p>
+                <a href="research.html" class="project-link">View Research →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2>Let's Connect</h2>
+        <p>Interested in collaboration or want to learn more about my work?</p>
+        <p><a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a></p>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a> |
+            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a> |
+            <a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a> |
+            <a href="Grupper_CV_2025.pdf" download>Download CV</a>
+        </div>
+        <p>&copy; 2025 Maddy Grupper. All rights reserved.</p>
+    </footer>
+</body>
+</html>

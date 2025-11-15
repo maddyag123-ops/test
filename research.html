@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddy Grupper | Research</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        h1, h2, h3, nav {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1.5rem 3rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+        }
+
+        nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: #2d5f3f;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        nav a:hover {
+            color: #5a9f6f;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #2d5f3f 0%, #234a33 100%);
+            color: white;
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            max-width: 1100px;
+            margin: -2rem auto 5rem;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #2d2d2d;
+        }
+
+        /* Featured Projects */
+        .featured-projects {
+            padding: 5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2d5f3f;
+            font-weight: 300;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e8f1eb 0%, #c8e6d3 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2d5f3f 0%, #8b7355 100%);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.6rem;
+            color: #2d5f3f;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .project-date {
+            font-size: 0.9rem;
+            color: #8b7355;
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .project-content p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+        }
+
+        /* Field Studies Map */
+        .field-studies {
+            padding: 6rem 3rem;
+            background: linear-gradient(135deg, #f0f5f2 0%, #e8f1eb 100%);
+            position: relative;
+        }
+
+        .field-studies::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: white;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+        }
+
+        .field-studies-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .field-studies p {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #4a4a4a;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 600px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 3px solid white;
+        }
+
+        #research-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Custom Leaflet Popup Styling */
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .leaflet-popup-content {
+            margin: 0;
+            width: 280px !important;
+            font-family: 'Georgia', serif;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .popup-content {
+            padding: 1.2rem;
+        }
+
+        .popup-title {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2d5f3f;
+            margin-bottom: 0.3rem;
+        }
+
+        .popup-date {
+            font-size: 0.85rem;
+            color: #8b7355;
+            font-style: italic;
+            margin-bottom: 0.8rem;
+        }
+
+        .popup-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        /* Custom Marker Colors */
+        .leaflet-marker-icon {
+            filter: hue-rotate(90deg) saturate(1.5);
+        }
+
+        /* Publications Section */
+        .publications {
+            padding: 6rem 3rem;
+            background: linear-gradient(to bottom, #2d5f3f 0%, #234a33 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .publications::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+
+        .publications .section-title {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .publications-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .publications-list {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .publication-item {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #c8e6d3;
+            transition: all 0.3s;
+        }
+
+        .publication-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(10px);
+        }
+
+        .publication-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #c8e6d3;
+            font-weight: 600;
+        }
+
+        .publication-item p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .publication-item a {
+            color: #c8e6d3;
+            text-decoration: none;
+            border-bottom: 1px solid #c8e6d3;
+            transition: all 0.3s;
+        }
+
+        .publication-item a:hover {
+            color: white;
+            border-color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #999;
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        footer .contact-info {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: #5a9f6f;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #a8d5ba;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field-studies::before {
+                height: 50px;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .intro-content {
+                padding: 2rem;
+            }
+
+            .project-content {
+                padding: 2rem;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <h1>Maddy Grupper</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="outreach.html">Outreach</a></li>
+                <li><a href="life.html">Life</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Research</h2>
+        </div>
+    </div>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <p>My research focuses on aquatic ecology and social science. I started my career as a wildlife biologist but quickly became frustrated with how all my work seemed to catalogue problems that stemmed from human behavior. I have increasingly turned my career towards understanding the behavior and drivers that affect ecosystem dynamics, with the goal of developing more informed conservation and management practices to build resilient systems.</p>
+        </div>
+    </section>
+
+    <section class="featured-projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Research_photo1.jpg" alt="EPA Geospatial Research">
+                </div>
+                <div class="project-content">
+                    <h3>US EPA Geospatial Research</h3>
+                    <p class="project-date">2020-2022</p>
+                    <p>After graduating with my Masters in Forestry and my graduate certificate in Geospatial Information Technology, I worked for the US EPA as a geospatial research analyst. I used mapping and analysis tools to explore how cell phone data could help us understand patterns of visitation in National Parks. My team and I were particularly interested in if this data could help us understand diversity gaps in parks.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Research_photo2.jpg" alt="Masters Research">
+                </div>
+                <div class="project-content">
+                    <h3>Social Resilience of Drinking Water Systems</h3>
+                    <p class="project-date">Masters Research, 2018-2020</p>
+                    <p>I worked on an interdisciplinary team to increase social and ecological resilience of a drinking water reservoir in Roanoke, VA. I focused on the social perceptions of drinking water to determine if new water forecasting technology increased public trust. This work was presented at the Virginia Lakes and Reservoirs conference of 2020 and the Association of Environmental and Social Sciences conference of 2020.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="photos/Research_photo3.jpg" alt="PhD Research Australia">
+                </div>
+                <div class="project-content">
+                    <h3>Integrating Social Science into Water Management</h3>
+                    <p class="project-date">PhD Research, 2022-Present</p>
+                    <p>I left the EPA in 2022 to start a PhD in Australia trying to develop better ways of integrating social science into water management and modelling. This work builds on my previous research to bridge the gap between stakeholder values and management decisions in complex aquatic systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="spatial" class="field-studies">
+        <div class="field-studies-content">
+            <h2 class="section-title">Field Studies Timeline</h2>
+            <p>An interactive journey through my field research experiences across North America and beyond. Click each marker to explore the stories behind the science.</p>
+
+            <div class="map-container">
+                <div id="research-map"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="publications">
+        <h2 class="section-title">Publications</h2>
+        <p class="publications-intro">Peer-reviewed research exploring the intersection of social science, ecology, and water resource management.</p>
+        <div class="publications-list">
+            <div class="publication-item">
+                <p>Grupper, M. A., Schreiber, M. E., & Sorice, M. G. (2021). How Perceptions of Trust, Risk, Tap Water Quality, and Salience Characterize Drinking Water Choices. <em>Hydrology, 8</em>(1), 49. <a href="http://dx.doi.org/10.3390/hydrology8010049" target="_blank">http://dx.doi.org/10.3390/hydrology8010049</a></p>
+            </div>
+
+            <div class="publication-item">
+                <p>Grupper, M.A. (2020). Exploring the Role of Trust in Drinking Water Systems in Western Virginia. Master's Thesis, Virginia Tech.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a> |
+            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a> |
+            <a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a>
+        </div>
+        <p>&copy; 2025 Maddy Grupper. All rights reserved.</p>
+    </footer>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        const map = L.map('research-map', {
+            center: [35, -95],
+            zoom: 3,
+            scrollWheelZoom: false,
+            minZoom: 2,
+            maxZoom: 10
+        });
+
+        // Enable scroll wheel zoom after clicking
+        map.on('click', function() {
+            map.scrollWheelZoom.enable();
+        });
+
+        // Disable scroll wheel zoom when mouse leaves
+        map.on('mouseout', function() {
+            map.scrollWheelZoom.disable();
+        });
+
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Custom icon for markers
+        const customIcon = L.icon({
+            iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzMCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTUgMEMxMC44NTUgMCA3LjUgMy4zNTUgNy41IDcuNWMwIDcuMzEgNy41IDE1IDcuNSAxNXM3LjUtNy42OSA3LjUtMTVjMC00LjE0NS0zLjM1NS03LjUtNy41LTcuNXoiIGZpbGw9IiMyZDVmM2YiLz48Y2lyY2xlIGN4PSIxNSIgY3k9IjcuNSIgcj0iNCIgZmlsbD0id2hpdGUiLz48L3N2Zz4=',
+            iconSize: [30, 40],
+            iconAnchor: [15, 40],
+            popupAnchor: [0, -40]
+        });
+
+        // Research locations data
+        const locations = [
+            {
+                name: "University of Wisconsin-Madison",
+                coords: [43.0766, -89.4125],
+                date: "Undergraduate Years",
+                description: "Tested how value-based interventions could narrow the achievement gap between first and continuing generation college students. Also worked in a plant pathology lab and measured nitrogen content in native plants—discovering how human systems and natural systems intertwine.",
+                photo: "photos/map_wisconsin.jpg"
+            },
+            {
+                name: "Stanislaus National Forest",
+                coords: [38.3, -119.9],
+                date: "Early Career",
+                description: "First job as a wilderness ranger, where I fell in love with protecting wild places and learned that conservation starts with boots on the ground.",
+                photo: "photos/map_stanislaus.jpg"
+            },
+            {
+                name: "Jamaica Bay",
+                coords: [40.6, -73.8],
+                date: "Field Season",
+                description: "Monitored diamondback terrapins in one of New York's most surprising wild places—proof that wildlife persists even in urban environments.",
+                photo: "photos/map_jamaica.jpg"
+            },
+            {
+                name: "Cedar City, Utah",
+                coords: [37.6775, -113.061],
+                date: "Wildlife Biologist",
+                description: "First wildlife biology position with the Department of Wildlife Resources. Banded birds and relocated endangered Utah prairie dogs, learning the delicate balance between human development and species conservation.",
+                photo: "photos/map_utah.jpg"
+            },
+            {
+                name: "Hastings Natural History Reserve",
+                coords: [36.378, -121.547],
+                date: "2015, 2018",
+                description: "Assisted in behavioral endocrinology research exploring how testosterone modulates behavior in California mice—one of the few monogamous mammals. Sometimes the smallest creatures teach us the most about complex relationships.",
+                photo: "photos/map_hastings.jpg"
+            },
+            {
+                name: "Yosemite National Park",
+                coords: [37.8651, -119.5383],
+                date: "Aquatics Technician",
+                description: "Surveyed backcountry lakes for herptiles, relocated turtles, and eradicated invasive fish. Learned that protecting ecosystems sometimes means making hard choices about what belongs and what doesn't.",
+                photo: "photos/map_yosemite.jpg"
+            },
+            {
+                name: "Mojave Desert",
+                coords: [35.0, -115.5],
+                date: "Multi-Year Study",
+                description: "Helped develop and conduct research characterizing range shifts of Mojave desert species due to long-term drought. Witnessed firsthand how climate change is rewriting the rules of where species can survive.",
+                photo: "photos/map_mojave.jpg"
+            },
+            {
+                name: "Shasta National Forest",
+                coords: [41.3, -122.3],
+                date: "Wildlife Ranger",
+                description: "Wilderness ranger part two—monitored spotted owls and developed bat range studies. Learned that the night shift reveals an entirely different forest.",
+                photo: "photos/map_shasta.jpg"
+            },
+            {
+                name: "Falling Creek Reservoir",
+                coords: [37.309, -79.418],
+                date: "Masters Research, 2018-2020",
+                description: "Investigated how people trust drinking water managed for algae blooms. This work shifted my focus from cataloging wildlife problems to understanding the human behavior driving them.",
+                photo: "photos/map_falling_creek.jpg"
+            },
+            {
+                name: "Durham, North Carolina",
+                coords: [35.9940, -78.8986],
+                date: "2020-2022",
+                description: "Worked as a geospatial research analyst for the US EPA, using cell phone data to understand visitation patterns and diversity gaps in National Parks. Technology met conservation in unexpected ways.",
+                photo: "photos/map_durham.jpg"
+            },
+            {
+                name: "Goulburn-Broken River Catchment",
+                coords: [-36.4, 145.4],
+                date: "PhD Research, 2022-Present",
+                description: "Developing methods to integrate social values into the tools water managers use for decision-making. Bringing together everything I've learned about ecosystems, people, and the spaces where they intersect.",
+                photo: "photos/map_goulburn.jpg"
+            }
+        ];
+
+        // Add markers to the map
+        locations.forEach(location => {
+            const popupContent = `
+                <img src="${location.photo}" alt="${location.name}" class="popup-image" onerror="this.style.display='none'">
+                <div class="popup-content">
+                    <div class="popup-title">${location.name}</div>
+                    <div class="popup-date">${location.date}</div>
+                    <div class="popup-description">${location.description}</div>
+                </div>
+            `;
+
+            L.marker(location.coords, { icon: customIcon })
+                .addTo(map)
+                .bindPopup(popupContent, {
+                    maxWidth: 280,
+                    className: 'custom-popup'
+                });
+        });
+
+        // Fit map to show all markers
+        const group = new L.featureGroup(
+            locations.map(loc => L.marker(loc.coords))
+        );
+        map.fitBounds(group.getBounds().pad(0.1));
+    </script>
+</body>
+</html>
