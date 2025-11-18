@@ -23,6 +23,11 @@ website/
 │   ├── Outreach_photo1.jpg          ← Food Water Communities project
 │   ├── Outreach_photo2.jpg          ← Science comm workshops/training
 │   ├── Outreach_photo3.jpg          ← Stakeholder engagement work
+│   ├── Life_climb1.jpg              ← Climbing photo 1
+│   ├── Life_climb2.jpg              ← Climbing photo 2
+│   ├── Life_climb3.jpg              ← Climbing photo 3
+│   ├── ...                          ← (Continue up to 50 photos)
+│   ├── Life_climb50.jpg             ← Climbing photo 50
 │   ├── map_wisconsin.jpg            ← University of Wisconsin-Madison
 │   ├── map_stanislaus.jpg           ← Stanislaus National Forest
 │   ├── map_jamaica.jpg              ← Jamaica Bay
@@ -119,6 +124,33 @@ website/
 
 ---
 
+## 🧗 life.html - Life/Climbing Page Images (30-50 images)
+
+### Life_climb1.jpg through Life_climb50.jpg
+- **What they are**: Your climbing photos from around the world
+- **Where they appear**: Interactive carousel gallery with thumbnails
+- **Specifications**:
+  - Any orientation (portrait or landscape)
+  - Minimum 1600px on longest side for fullscreen viewing
+  - Optimized for web (under 800KB each)
+- **Naming convention**: `Life_climb1.jpg`, `Life_climb2.jpg`, `Life_climb3.jpg`, etc.
+- **Important**: Update the `climbingPhotos` array in life.html (around line 396) with:
+  - Photo file name
+  - Location name
+  - Optional story/caption for each photo
+
+**Example entry in life.html:**
+```javascript
+{ src: 'photos/Life_climb1.jpg', location: 'Yosemite Valley, CA', story: 'First time on El Capitan - humbling and inspiring.' },
+```
+
+### How many photos to include:
+- **Minimum**: 5 photos (will work fine)
+- **Recommended**: 20-30 photos (good variety without overwhelming)
+- **Maximum**: 50 photos (as many as you want!)
+
+---
+
 ## 🗺️ Interactive Research Map Images (11 images)
 
 These appear in **clickable popups** on the research page map. Each should show the location/work described.
@@ -212,11 +244,20 @@ Images with natural tones (greens, browns, earth tones) will harmonize best with
 ## ✅ Quick Setup Checklist
 
 1. [ ] Create `photos/` folder in your website directory
-2. [ ] Add all 22 images with exact file names listed above
-3. [ ] Ensure `Grupper_CV_2025.pdf` is in the root directory
-4. [ ] Test the website locally to ensure all images load
-5. [ ] Check that circle photos look good when cropped to circles
-6. [ ] Verify map popup images display properly when clicked
+2. [ ] Add core website images (22 images):
+   - 6 home page images
+   - 3 research page images
+   - 3 outreach page images
+   - 11 research map images
+3. [ ] Add climbing photos (30-50 images) to Life page
+4. [ ] Update the `climbingPhotos` array in life.html with your photo data
+5. [ ] Update the `climbingLocations` array in life.html with your climbing destinations
+6. [ ] Replace placeholder intro text in life.html with content from your defunct site
+7. [ ] Ensure `Grupper_CV_2025.pdf` is in the root directory
+8. [ ] Test the website locally to ensure all images load
+9. [ ] Check that circle photos look good when cropped to circles
+10. [ ] Verify map popup images display properly when clicked
+11. [ ] Test the carousel navigation and fullscreen lightbox on Life page
 
 ---
 
