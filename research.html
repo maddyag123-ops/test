@@ -29,7 +29,7 @@
         /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.98);
-            padding: 1.5rem 3rem;
+            padding: 2rem 3rem 1rem;
             position: fixed;
             width: 100%;
             top: 0;
@@ -47,10 +47,12 @@
         }
 
         nav h1 {
-            font-size: 1.5rem;
+            font-size: 3rem;
             color: #2d5f3f;
             font-weight: 600;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1001;
         }
 
         nav ul {
@@ -74,7 +76,7 @@
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
+            margin-top: 100px;
             background: linear-gradient(135deg, #2d5f3f 0%, #234a33 100%);
             color: white;
             padding: 5rem 3rem;
@@ -161,7 +163,7 @@
 
         .project-image {
             width: 100%;
-            height: 250px;
+            aspect-ratio: 1 / 1;
             background: linear-gradient(135deg, #e8f1eb 0%, #c8e6d3 100%);
             overflow: hidden;
             position: relative;
@@ -275,7 +277,7 @@
 
         .popup-image {
             width: 100%;
-            height: 180px;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
             display: block;
         }
@@ -503,7 +505,7 @@
                 <div class="project-content">
                     <h3>US EPA Geospatial Research</h3>
                     <p class="project-date">2020-2022</p>
-                    <p>After graduating with my Masters in Forestry and my graduate certificate in Geospatial Information Technology, I worked for the US EPA as a geospatial research analyst. I used mapping and analysis tools to explore how cell phone data could help us understand patterns of visitation in National Parks. My team and I were particularly interested in if this data could help us understand diversity gaps in parks.</p>
+                    <p>I worked for the US EPA as a geospatial research analyst, leveraging my graduate certificate in GIS. I used mapping and analysis to explore how large cellular mobility datasets could help us understand visitation in National Parks - who visited which parks and why?</p>
                 </div>
             </div>
 
@@ -514,7 +516,7 @@
                 <div class="project-content">
                     <h3>Social Resilience of Drinking Water Systems</h3>
                     <p class="project-date">Masters Research, 2018-2020</p>
-                    <p>I worked on an interdisciplinary team to increase social and ecological resilience of a drinking water reservoir in Roanoke, VA. I focused on the social perceptions of drinking water to determine if new water forecasting technology increased public trust. This work was presented at the Virginia Lakes and Reservoirs conference of 2020 and the Association of Environmental and Social Sciences conference of 2020.</p>
+                    <p>I worked on an interdisciplinary team to increase social and ecological resilience of a drinking water reservoir in Roanoke, VA. I focused on the social perceptions of drinking water to determine if new water forecasting technology (developed to help with algae blooms and climate change adaptation) increased public trust.</p>
                 </div>
             </div>
 
@@ -546,6 +548,10 @@
         <h2 class="section-title">Publications</h2>
         <p class="publications-intro">Peer-reviewed research exploring the intersection of social science, ecology, and water resource management.</p>
         <div class="publications-list">
+            <div class="publication-item">
+                <p>Grupper, M. A., et al. (2025). <em>Geoscientific Communication, 8</em>, 285. <a href="https://gc.copernicus.org/articles/8/285/2025/" target="_blank">https://gc.copernicus.org/articles/8/285/2025/</a></p>
+            </div>
+
             <div class="publication-item">
                 <p>Grupper, M. A., Webb, J. A., & Sharpe, L. (2024). A review of social equity considerations in water resources planning and management. <em>WIREs Water</em>. <a href="https://doi.org/10.1002/wat2.1764" target="_blank">https://doi.org/10.1002/wat2.1764</a></p>
             </div>
@@ -602,13 +608,20 @@
             maxZoom: 19
         }).addTo(map);
 
-        // Custom icon for markers
-        const customIcon = L.icon({
-            iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzMCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTUgMEMxMC44NTUgMCA3LjUgMy4zNTUgNy41IDcuNWMwIDcuMzEgNy41IDE1IDcuNSAxNXM3LjUtNy42OSA3LjUtMTVjMC00LjE0NS0zLjM1NS03LjUtNy41LTcuNXoiIGZpbGw9IiMyZDVmM2YiLz48Y2lyY2xlIGN4PSIxNSIgY3k9IjcuNSIgcj0iNCIgZmlsbD0id2hpdGUiLz48L3N2Zz4=',
-            iconSize: [30, 40],
-            iconAnchor: [15, 40],
-            popupAnchor: [0, -40]
-        });
+        // Function to create numbered marker
+        function createNumberedIcon(number) {
+            const svg = `<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" fill="#2d5f3f" stroke="white" stroke-width="3"/>
+                <text x="20" y="20" text-anchor="middle" dy=".35em" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">${number}</text>
+            </svg>`;
+            return L.divIcon({
+                html: svg,
+                className: 'numbered-marker',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20],
+                popupAnchor: [150, 0]
+            });
+        }
 
         // Research locations data
         const locations = [
@@ -616,7 +629,7 @@
                 name: "University of Wisconsin-Madison",
                 coords: [43.0766, -89.4125],
                 date: "Undergraduate Years",
-                description: "Tested how value-based interventions could narrow the achievement gap between first and continuing generation college students. Also worked in a plant pathology lab and measured nitrogen content in native plants—discovering how human systems and natural systems intertwine.",
+                description: "I tested how value-based interventions could narrow the achievement gap between first and continuing generation college students. I also worked in a plant pathology lab and measured nitrogen content in native plants.",
                 photo: "photos/map_wisconsin.jpg"
             },
             {
@@ -630,69 +643,69 @@
                 name: "Jamaica Bay",
                 coords: [40.6, -73.8],
                 date: "Field Season",
-                description: "Monitored diamondback terrapins in one of New York's most surprising wild places—proof that wildlife persists even in urban environments.",
+                description: "I monitored diamondback terrapins in New York's urban beaches.",
                 photo: "photos/map_jamaica.jpg"
             },
             {
                 name: "Cedar City, Utah",
                 coords: [37.6775, -113.061],
                 date: "Wildlife Biologist",
-                description: "First wildlife biology position with the Department of Wildlife Resources. Banded birds and relocated endangered Utah prairie dogs, learning the delicate balance between human development and species conservation.",
+                description: "My first wildlife biology position with the Department of Wildlife Resources. I banded birds and relocated endangered Utah prairie dogs, learning about balancing human development and species conservation.",
                 photo: "photos/map_utah.jpg"
             },
             {
                 name: "Hastings Natural History Reserve",
                 coords: [36.378, -121.547],
                 date: "2015, 2018",
-                description: "Assisted in behavioral endocrinology research exploring how testosterone modulates behavior in California mice—one of the few monogamous mammals. Sometimes the smallest creatures teach us the most about complex relationships.",
+                description: "I assisted in behavioral endocrinology research exploring how testosterone modulates behavior in California mice—one of the few monogamous mammals. This was my first experience with wildlife research.",
                 photo: "photos/map_hastings.jpg"
             },
             {
                 name: "Yosemite National Park",
                 coords: [37.8651, -119.5383],
                 date: "Aquatics Technician",
-                description: "Surveyed backcountry lakes for herptiles, relocated turtles, and eradicated invasive fish. Learned that protecting ecosystems sometimes means making hard choices about what belongs and what doesn't.",
+                description: "Transitioned from wilderness ranger to wildlife ranger. I surveyed backcountry lakes for endangered herptiles, relocated turtles, and eradicated invasive fish.",
                 photo: "photos/map_yosemite.jpg"
             },
             {
                 name: "Mojave Desert",
                 coords: [35.0, -115.5],
                 date: "Multi-Year Study",
-                description: "Helped develop and conduct research characterizing range shifts of Mojave desert species due to long-term drought. Witnessed firsthand how climate change is rewriting the rules of where species can survive.",
+                description: "I helped develop and conduct research characterizing range shifts of Mojave desert species due to long-term drought. This let me witness firsthand how climate change resets where species can survive.",
                 photo: "photos/map_mojave.jpg"
             },
             {
                 name: "Shasta National Forest",
                 coords: [41.3, -122.3],
                 date: "Wildlife Ranger",
-                description: "Wilderness ranger part two—monitored spotted owls and developed bat range studies. Learned that the night shift reveals an entirely different forest.",
+                description: "Wilderness ranger part two—I monitored endangered spotted owls and developed a new bat range study from scratch.",
                 photo: "photos/map_shasta.jpg"
             },
             {
                 name: "Falling Creek Reservoir",
                 coords: [37.309, -79.418],
                 date: "Masters Research, 2018-2020",
-                description: "Investigated how people trust drinking water managed for algae blooms. This work shifted my focus from cataloging wildlife problems to understanding the human behavior driving them.",
+                description: "I investigated how people trust drinking water managed for algae blooms. This work shifted my focus from natural systems alone to understanding the human behavior impacting those systems.",
                 photo: "photos/map_falling_creek.jpg"
             },
             {
                 name: "Durham, North Carolina",
                 coords: [35.9940, -78.8986],
                 date: "2020-2022",
-                description: "Worked as a geospatial research analyst for the US EPA, using cell phone data to understand visitation patterns and diversity gaps in National Parks. Technology met conservation in unexpected ways.",
+                description: "I worked as a geospatial research analyst for the US EPA, using cell phone data to understand visitation patterns and diversity gaps in National Parks. I also built open access map layers for community use.",
                 photo: "photos/map_durham.jpg"
             },
             {
                 name: "Goulburn-Broken River Catchment",
                 coords: [-36.4, 145.4],
                 date: "PhD Research, 2022-Present",
-                description: "Developing methods to integrate social values into the tools water managers use for decision-making. Bringing together everything I've learned about ecosystems, people, and the spaces where they intersect.",
+                description: "I'm developing methods to integrate social values into the tools water managers use for decision-making.",
                 photo: "photos/map_goulburn.jpg"
             }
         ];
 
         // Add markers to the map
-        locations.forEach(location => {
+        locations.forEach((location, index) => {
             const popupContent = `
                 <img src="${location.photo}" alt="${location.name}" class="popup-image" onerror="this.style.display='none'">
                 <div class="popup-content">
@@ -702,11 +715,12 @@
                 </div>
             `;
 
-            L.marker(location.coords, { icon: customIcon })
+            L.marker(location.coords, { icon: createNumberedIcon(index + 1) })
                 .addTo(map)
                 .bindPopup(popupContent, {
                     maxWidth: 280,
-                    className: 'custom-popup'
+                    className: 'custom-popup',
+                    offset: [140, 0]
                 });
         });
 
