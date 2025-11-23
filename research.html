@@ -619,7 +619,7 @@
                 className: 'numbered-marker',
                 iconSize: [40, 40],
                 iconAnchor: [20, 20],
-                popupAnchor: [150, 0]
+                popupAnchor: [160, -10]
             });
         }
 
@@ -705,6 +705,7 @@
         ];
 
         // Add markers to the map
+        const markers = [];
         locations.forEach((location, index) => {
             const popupContent = `
                 <img src="${location.photo}" alt="${location.name}" class="popup-image" onerror="this.style.display='none'">
@@ -715,21 +716,21 @@
                 </div>
             `;
 
-            L.marker(location.coords, { icon: createNumberedIcon(index + 1) })
+            const marker = L.marker(location.coords, { icon: createNumberedIcon(index + 1) })
                 .addTo(map)
                 .bindPopup(popupContent, {
                     maxWidth: 280,
                     className: 'custom-popup',
-                    offset: [140, 0],
                     autoPan: false
                 });
+            markers.push(marker);
         });
 
         // Fit map to show all markers
-        const group = new L.featureGroup(
-            locations.map(loc => L.marker(loc.coords))
-        );
-        map.fitBounds(group.getBounds().pad(0.1));
+        if (markers.length > 0) {
+            const group = new L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.1));
+        }
     </script>
 </body>
 </html>
