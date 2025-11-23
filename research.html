@@ -263,6 +263,11 @@
         }
 
         /* Custom Leaflet Popup Styling */
+        .leaflet-popup {
+            margin-left: 150px !important;
+            margin-bottom: 0 !important;
+        }
+
         .leaflet-popup-content-wrapper {
             border-radius: 8px;
             padding: 0;
@@ -273,6 +278,10 @@
             margin: 0;
             width: 280px !important;
             font-family: 'Georgia', serif;
+        }
+
+        .leaflet-popup-tip {
+            margin-left: -150px;
         }
 
         .popup-image {
@@ -619,7 +628,7 @@
                 className: 'numbered-marker',
                 iconSize: [40, 40],
                 iconAnchor: [20, 20],
-                popupAnchor: [160, -10]
+                popupAnchor: [0, -20]
             });
         }
 
