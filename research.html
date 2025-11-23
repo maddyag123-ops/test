@@ -278,7 +278,7 @@
 
         .popup-image {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
@@ -730,8 +730,9 @@
         // Fit map to show all markers with extra padding for popups
         if (markers.length > 0) {
             const group = new L.featureGroup(markers);
-            map.fitBounds(group.getBounds().pad(0.2), {
-                paddingTopLeft: [20, 150],
+            const bounds = group.getBounds();
+            map.fitBounds(bounds, {
+                paddingTopLeft: [20, 250],
                 paddingBottomRight: [20, 20]
             });
         }
