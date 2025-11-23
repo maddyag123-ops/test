@@ -791,7 +791,9 @@
             const photo = climbingPhotos[index];
 
             // Update featured image
-            document.getElementById('featured-image').src = photo.src;
+            const featuredImg = document.getElementById('featured-image');
+            featuredImg.style.display = 'block'; // Reset display in case it was hidden
+            featuredImg.src = photo.src;
             document.getElementById('photo-location').textContent = photo.location;
             document.getElementById('photo-story').textContent = photo.story || '';
             document.getElementById('current-photo').textContent = index + 1;
