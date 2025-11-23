@@ -731,17 +731,16 @@
             markers.push(marker);
         });
 
-        // Set custom bounds - Tasmania at bottom, exclude Antarctica
-        // South: just below Tasmania (-40), North: above Wisconsin (50)
-        // West: California (-125), East: New York (-70)
+        // Set custom bounds - Focus on North America with Australia visible on scroll
+        // Adjusted to keep North America on left side, Tasmania just visible at bottom
         const customBounds = [
-            [-40, -130],  // Southwest corner (below Tasmania)
-            [50, -65]     // Northeast corner (above Wisconsin)
+            [-42, -125],  // Southwest corner (just below Tasmania, California longitude)
+            [52, 150]     // Northeast corner (above Wisconsin, include Australia)
         ];
 
         map.fitBounds(customBounds, {
-            paddingTopLeft: [20, 300],
-            paddingBottomRight: [20, 30]
+            paddingTopLeft: [20, 350],
+            paddingBottomRight: [20, 10]
         });
     </script>
 </body>
