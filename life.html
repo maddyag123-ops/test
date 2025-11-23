@@ -589,7 +589,7 @@
                 <button class="carousel-nav prev" onclick="changePhoto(-1)">‹</button>
                 <button class="carousel-nav next" onclick="changePhoto(1)">›</button>
 
-                <img id="featured-image" class="featured-image" src="" alt="Climbing photo">
+                <img id="featured-image" class="featured-image" src="" alt="Climbing photo" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #c8e6d3 0%, #e8f1eb 100%)';">
 
                 <div class="caption-overlay">
                     <h3 id="photo-location"></h3>
@@ -756,7 +756,25 @@
                 const thumbnail = document.createElement('div');
                 thumbnail.className = 'thumbnail';
                 if (index === 0) thumbnail.classList.add('active');
-                thumbnail.innerHTML = `<img src="${photo.src}" alt="${photo.location}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2290%22><rect width=%22120%22 height=%2290%22 fill=%22%23c8e6d3%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%232d5f3f%22>Photo ${index + 1}</text></svg>'>`;
+
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = photo.location;
+
+                // Better error handling for missing images
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    thumbnail.style.background = 'linear-gradient(135deg, #c8e6d3 0%, #a8d5ba 100%)';
+                    thumbnail.style.display = 'flex';
+                    thumbnail.style.alignItems = 'center';
+                    thumbnail.style.justifyContent = 'center';
+                    thumbnail.style.color = '#2d5f3f';
+                    thumbnail.style.fontSize = '0.8rem';
+                    thumbnail.style.fontWeight = '600';
+                    thumbnail.innerHTML = `${index + 1}`;
+                };
+
+                thumbnail.appendChild(img);
                 thumbnail.onclick = () => showPhoto(index);
                 thumbnailStrip.appendChild(thumbnail);
             });
