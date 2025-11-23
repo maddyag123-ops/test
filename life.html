@@ -111,7 +111,7 @@
         /* Intro Section */
         .intro-section {
             max-width: 1100px;
-            margin: -2rem auto 5rem;
+            margin: -2rem auto 2rem;
             padding: 0 3rem;
             position: relative;
             z-index: 2;
@@ -137,7 +137,7 @@
 
         /* Photo Gallery Section */
         .gallery-section {
-            padding: 5rem 3rem;
+            padding: 3rem 3rem 5rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -652,21 +652,20 @@
         // ==========================================
         // PHOTO GALLERY DATA
         // ==========================================
-        // ADD YOUR CLIMBING PHOTOS HERE (30-50 photos)
-        // Format: { src: 'photos/Life_climb1.jpg', location: 'Location Name', story: 'Your story (optional)' }
+        // Auto-generated array for all climbing photos
+        // Add location and story details by editing specific entries
 
-        const climbingPhotos = [
-            { src: 'photos/Life_climb1.jpg', location: 'Yosemite Valley, CA', story: 'First time on El Capitan - humbling and inspiring.' },
-            { src: 'photos/Life_climb2.jpg', location: 'Red Rocks, NV', story: 'Sandstone magic in the desert sunset.' },
-            { src: 'photos/Life_climb3.jpg', location: 'Joshua Tree, CA', story: 'Learning to read the rock in the desert.' },
-            { src: 'photos/Life_climb4.jpg', location: 'Kalymnos, Greece', story: 'Limestone paradise over the Aegean Sea.' },
-            { src: 'photos/Life_climb5.jpg', location: 'Patagonia, Argentina', story: 'Wind, granite, and endless horizons.' },
-            // ADD MORE PHOTOS HERE (up to 50)
-            // Copy the format above and increment the numbers
-            // { src: 'photos/Life_climb6.jpg', location: 'Location', story: 'Your story' },
-            // { src: 'photos/Life_climb7.jpg', location: 'Location', story: 'Your story' },
-            // ... etc
-        ];
+        const climbingPhotos = [];
+
+        // Generate entries for Life_climb1 through Life_climb100
+        // Missing photo numbers will show placeholder or be skipped via onerror handler
+        for (let i = 1; i <= 100; i++) {
+            climbingPhotos.push({
+                src: `photos/Life_climb${i}.jpg`,
+                location: `Climbing Location ${i}`,
+                story: ''
+            });
+        }
 
         // ==========================================
         // CLIMBING LOCATIONS FOR MAP
