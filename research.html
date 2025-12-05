@@ -601,6 +601,7 @@
                     <h3>US EPA Geospatial Research</h3>
                     <p class="project-date">2020-2022</p>
                     <p>I worked for the US EPA as a geospatial research analyst, leveraging my graduate certificate in GIS. I used mapping and analysis to explore how large cellular mobility datasets could help us understand visitation in National Parks - who visited which parks and why?</p>
+                    <p style="font-style: italic; margin-bottom: 0.5rem;">Learn more:</p>
                     <div class="project-links">
                         <a href="https://doi.org/10.1371/journal.pone.0289922" target="_blank" class="project-btn">Scientific Audience</a>
                     </div>
@@ -615,6 +616,7 @@
                     <h3>Social Resilience of Drinking Water Systems</h3>
                     <p class="project-date">Masters Research, 2018-2020</p>
                     <p>I worked on an interdisciplinary team to increase social and ecological resilience of a drinking water reservoir in Roanoke, VA. I focused on the social perceptions of drinking water to determine if new water forecasting technology (developed to help with algae blooms and climate change adaptation) increased public trust.</p>
+                    <p style="font-style: italic; margin-bottom: 0.5rem;">Learn more:</p>
                     <div class="project-links">
                         <a href="https://doi.org/10.5751/es-12833-260441" target="_blank" class="project-btn">Scientific Audience</a>
                         <a href="https://medium.com/the-scope-yale-scientific-magazines-online-blog/trust-might-be-one-of-the-most-valuable-resources-for-climate-change-adaptation-6a897d3bfffc" target="_blank" class="project-btn">General Audience</a>
@@ -630,6 +632,7 @@
                     <h3>Integrating Social Science into Water Management</h3>
                     <p class="project-date">PhD Research, 2022-Present</p>
                     <p>I left the EPA in 2022 to start a PhD in Australia trying to develop better ways of integrating social science into water management and modelling. This work builds on my previous research to bridge the gap between stakeholder values and management decisions in complex aquatic systems.</p>
+                    <p style="font-style: italic; margin-bottom: 0.5rem;">Learn more:</p>
                     <div class="project-links">
                         <a href="https://doi.org/10.1002/wat2.1764" target="_blank" class="project-btn">Scientific Audience</a>
                     </div>
@@ -665,7 +668,6 @@
 
     <section class="publications">
         <h2 class="section-title">Publications</h2>
-        <p class="publications-intro">Peer-reviewed research exploring the intersection of social science, ecology, and water resource management.</p>
         <div class="publications-list">
             <div class="publication-item">
                 <p>Kosovac, A., & Grupper, M. (2025). Gender, migration, and drought: an exploratory study of women's roles in Mallee farming communities. <em>Geoscience Communication, 8</em>(4), 285–295. <a href="https://doi.org/10.5194/gc-8-285-2025" target="_blank">https://doi.org/10.5194/gc-8-285-2025</a></p>
@@ -842,10 +844,18 @@
             const infoBox = document.getElementById('map-info-box');
             const infoImage = document.getElementById('info-box-image');
 
-            // Update content with title, date, and location
+            // Update content with title in header
             document.getElementById('info-box-number').textContent = location.title;
-            document.getElementById('info-box-title').textContent = location.date;
-            document.getElementById('info-box-date').textContent = location.location;
+
+            // Show location and date on one line if date exists, otherwise just location
+            const hasRealDate = location.date && !location.date.includes('Early Career') && !location.date.includes('Field Season');
+            if (hasRealDate) {
+                document.getElementById('info-box-title').textContent = `${location.location} - ${location.date}`;
+            } else {
+                document.getElementById('info-box-title').textContent = location.location;
+            }
+
+            document.getElementById('info-box-date').textContent = ''; // Clear the date field
             document.getElementById('info-box-description').textContent = location.description;
 
             // Reset and set image
