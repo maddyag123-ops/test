@@ -249,7 +249,7 @@
 
         .map-container {
             width: 100%;
-            height: 450px;
+            height: 550px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.1);
@@ -267,31 +267,70 @@
             height: 100%;
         }
 
-        /* Custom Leaflet Popup Styling */
-        .leaflet-popup-content-wrapper {
+        /* Fixed Info Box */
+        .map-info-box {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 320px;
+            background: white;
             border-radius: 8px;
-            padding: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
             overflow: hidden;
+            display: none;
         }
 
-        .leaflet-popup-content {
-            margin: 0;
-            width: 320px !important;
-            font-family: 'Georgia', serif;
+        .map-info-box.active {
+            display: block;
         }
 
-        .popup-image {
+        .info-box-header {
+            background: #2d5f3f;
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-box-number {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .info-box-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .info-box-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .info-box-image {
             width: 100%;
             height: 180px;
             object-fit: cover;
             display: block;
         }
 
-        .popup-content {
+        .info-box-content {
             padding: 1.2rem;
         }
 
-        .popup-title {
+        .info-box-title {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 1.15rem;
             font-weight: 600;
@@ -299,17 +338,22 @@
             margin-bottom: 0.3rem;
         }
 
-        .popup-date {
+        .info-box-date {
             font-size: 0.85rem;
             color: #8b7355;
             font-style: italic;
             margin-bottom: 0.8rem;
         }
 
-        .popup-description {
+        .info-box-description {
             font-size: 0.95rem;
             line-height: 1.6;
             color: #4a4a4a;
+        }
+
+        /* Hide default Leaflet popups */
+        .leaflet-popup {
+            display: none !important;
         }
 
         /* Custom Marker Colors */
@@ -450,6 +494,10 @@
             .map-container {
                 height: 400px;
             }
+
+            .map-info-box {
+                width: 280px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -471,6 +519,20 @@
 
             .map-container {
                 height: 400px;
+            }
+
+            .map-info-box {
+                width: 250px;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .info-box-image {
+                height: 140px;
+            }
+
+            .info-box-content {
+                padding: 1rem;
             }
         }
     </style>
@@ -545,6 +607,20 @@
 
             <div class="map-container">
                 <div id="research-map"></div>
+
+                <!-- Fixed Info Box -->
+                <div class="map-info-box" id="map-info-box">
+                    <div class="info-box-header">
+                        <span class="info-box-number" id="info-box-number">Location #1</span>
+                        <button class="info-box-close" onclick="closeInfoBox()">×</button>
+                    </div>
+                    <img id="info-box-image" class="info-box-image" src="" alt="" onerror="this.style.display='none'">
+                    <div class="info-box-content">
+                        <div class="info-box-title" id="info-box-title"></div>
+                        <div class="info-box-date" id="info-box-date"></div>
+                        <div class="info-box-description" id="info-box-description"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -713,25 +789,42 @@
             }
         ];
 
+        // Function to show info box
+        function showInfoBox(location, number) {
+            const infoBox = document.getElementById('map-info-box');
+            const infoImage = document.getElementById('info-box-image');
+
+            // Update content
+            document.getElementById('info-box-number').textContent = `Location #${number}`;
+            document.getElementById('info-box-title').textContent = location.name;
+            document.getElementById('info-box-date').textContent = location.date;
+            document.getElementById('info-box-description').textContent = location.description;
+
+            // Reset and set image
+            infoImage.style.display = 'block';
+            infoImage.src = location.photo;
+            infoImage.alt = location.name;
+
+            // Show the box
+            infoBox.classList.add('active');
+        }
+
+        // Function to close info box
+        function closeInfoBox() {
+            document.getElementById('map-info-box').classList.remove('active');
+        }
+
         // Add markers to the map
         const markers = [];
         locations.forEach((location, index) => {
-            const popupContent = `
-                <img src="${location.photo}" alt="${location.name}" class="popup-image" onerror="this.style.display='none'">
-                <div class="popup-content">
-                    <div class="popup-title">${location.name}</div>
-                    <div class="popup-date">${location.date}</div>
-                    <div class="popup-description">${location.description}</div>
-                </div>
-            `;
-
             const marker = L.marker(location.coords, { icon: createNumberedIcon(index + 1) })
-                .addTo(map)
-                .bindPopup(popupContent, {
-                    maxWidth: 320,
-                    className: 'custom-popup',
-                    autoPan: false
-                });
+                .addTo(map);
+
+            // Add click event to show info box
+            marker.on('click', function() {
+                showInfoBox(location, index + 1);
+            });
+
             markers.push(marker);
         });
 
