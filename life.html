@@ -389,7 +389,7 @@
 
         /* Map and Philosophy Section */
         .map-philosophy-section {
-            padding: 6rem 3rem;
+            padding: 4rem 3rem;
             background: linear-gradient(135deg, #f0f5f2 0%, #e8f1eb 100%);
             position: relative;
         }
@@ -436,7 +436,7 @@
 
         #climbing-map {
             width: 100%;
-            height: 400px;
+            height: 300px;
         }
 
         /* Philosophy Text */
@@ -640,16 +640,6 @@
                 <p><strong>Winner, American Alpine Club Live Your Dream Grant, 2019</strong></p>
 
                 <p><strong>Third Place, Collegiate Climbing National Championship, 2012</strong></p>
-
-                <p style="margin-top: 2rem;"><strong>Climbs I'm Proud Of:</strong></p>
-
-                <p><strong>Recent Sport:</strong> Fuel Injector</p>
-
-                <p><strong>Recent Boulder:</strong> Mexican</p>
-
-                <p><strong>Recent Trad:</strong> Totem Pole</p>
-
-                <p style="margin-top: 2rem;">For more climbing and travel stories, <a href="https://www.instagram.com/maddventure/" target="_blank" style="color: #2d5f3f; text-decoration: underline;">visit my blog here</a></p>
             </div>
         </div>
     </section>
@@ -657,9 +647,7 @@
     <footer>
         <div class="contact-info">
             <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a> |
-            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a> |
-            <a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a> |
-            <a href="Grupper_CV_2025.pdf" download>Download CV</a>
+            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2025 Maddy Grupper. All rights reserved.</p>
     </footer>
@@ -768,19 +756,42 @@
         // ==========================================
 
         let currentPhotoIndex = 0;
+        let validPhotos = [];
 
-        function initGallery() {
+        async function checkImageExists(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = url;
+            });
+        }
+
+        async function initGallery() {
             if (climbingPhotos.length === 0) {
                 document.querySelector('.gallery-section').style.display = 'none';
                 return;
             }
 
-            // Update total count
-            document.getElementById('total-photos').textContent = climbingPhotos.length;
+            // Filter out missing images
+            for (let photo of climbingPhotos) {
+                const exists = await checkImageExists(photo.src);
+                if (exists) {
+                    validPhotos.push(photo);
+                }
+            }
 
-            // Generate thumbnails
+            if (validPhotos.length === 0) {
+                document.querySelector('.gallery-section').style.display = 'none';
+                return;
+            }
+
+            // Update total count with valid photos only
+            document.getElementById('total-photos').textContent = validPhotos.length;
+
+            // Generate thumbnails for valid photos only
             const thumbnailStrip = document.getElementById('thumbnail-strip');
-            climbingPhotos.forEach((photo, index) => {
+            validPhotos.forEach((photo, index) => {
                 const thumbnail = document.createElement('div');
                 thumbnail.className = 'thumbnail';
                 if (index === 0) thumbnail.classList.add('active');
@@ -788,19 +799,6 @@
                 const img = document.createElement('img');
                 img.src = photo.src;
                 img.alt = photo.location;
-
-                // Better error handling for missing images
-                img.onerror = function() {
-                    this.style.display = 'none';
-                    thumbnail.style.background = 'linear-gradient(135deg, #c8e6d3 0%, #a8d5ba 100%)';
-                    thumbnail.style.display = 'flex';
-                    thumbnail.style.alignItems = 'center';
-                    thumbnail.style.justifyContent = 'center';
-                    thumbnail.style.color = '#2d5f3f';
-                    thumbnail.style.fontSize = '0.8rem';
-                    thumbnail.style.fontWeight = '600';
-                    thumbnail.innerHTML = `${index + 1}`;
-                };
 
                 thumbnail.appendChild(img);
                 thumbnail.onclick = () => showPhoto(index);
@@ -812,11 +810,12 @@
         }
 
         function showPhoto(index) {
-            if (index < 0) index = climbingPhotos.length - 1;
-            if (index >= climbingPhotos.length) index = 0;
+            if (validPhotos.length === 0) return;
+            if (index < 0) index = validPhotos.length - 1;
+            if (index >= validPhotos.length) index = 0;
 
             currentPhotoIndex = index;
-            const photo = climbingPhotos[index];
+            const photo = validPhotos[index];
 
             // Update featured image
             const featuredImg = document.getElementById('featured-image');
@@ -854,7 +853,7 @@
         // ==========================================
 
         function openLightbox() {
-            const photo = climbingPhotos[currentPhotoIndex];
+            const photo = validPhotos[currentPhotoIndex];
             document.getElementById('lightbox-image').src = photo.src;
             document.getElementById('lightbox-caption').textContent = `${photo.location}${photo.story ? ' - ' + photo.story : ''}`;
             document.getElementById('lightbox').classList.add('active');

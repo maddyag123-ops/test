@@ -213,6 +213,33 @@
             font-size: 1.05rem;
             line-height: 1.7;
             color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(45, 95, 63, 0.2);
+        }
+
+        .project-btn:hover {
+            background: #1f4430;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.3);
         }
 
         /* Field Studies Map */
@@ -295,8 +322,9 @@
         }
 
         .info-box-number {
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.3;
         }
 
         .info-box-close {
@@ -573,6 +601,9 @@
                     <h3>US EPA Geospatial Research</h3>
                     <p class="project-date">2020-2022</p>
                     <p>I worked for the US EPA as a geospatial research analyst, leveraging my graduate certificate in GIS. I used mapping and analysis to explore how large cellular mobility datasets could help us understand visitation in National Parks - who visited which parks and why?</p>
+                    <div class="project-links">
+                        <a href="https://doi.org/10.1371/journal.pone.0289922" target="_blank" class="project-btn">Scientific Audience</a>
+                    </div>
                 </div>
             </div>
 
@@ -584,6 +615,10 @@
                     <h3>Social Resilience of Drinking Water Systems</h3>
                     <p class="project-date">Masters Research, 2018-2020</p>
                     <p>I worked on an interdisciplinary team to increase social and ecological resilience of a drinking water reservoir in Roanoke, VA. I focused on the social perceptions of drinking water to determine if new water forecasting technology (developed to help with algae blooms and climate change adaptation) increased public trust.</p>
+                    <div class="project-links">
+                        <a href="https://doi.org/10.5751/es-12833-260441" target="_blank" class="project-btn">Scientific Audience</a>
+                        <a href="https://medium.com/the-scope-yale-scientific-magazines-online-blog/trust-might-be-one-of-the-most-valuable-resources-for-climate-change-adaptation-6a897d3bfffc" target="_blank" class="project-btn">General Audience</a>
+                    </div>
                 </div>
             </div>
 
@@ -595,6 +630,9 @@
                     <h3>Integrating Social Science into Water Management</h3>
                     <p class="project-date">PhD Research, 2022-Present</p>
                     <p>I left the EPA in 2022 to start a PhD in Australia trying to develop better ways of integrating social science into water management and modelling. This work builds on my previous research to bridge the gap between stakeholder values and management decisions in complex aquatic systems.</p>
+                    <div class="project-links">
+                        <a href="https://doi.org/10.1002/wat2.1764" target="_blank" class="project-btn">Scientific Audience</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -658,8 +696,7 @@
     <footer>
         <div class="contact-info">
             <a href="https://www.linkedin.com/in/madeline-grupper/" target="_blank">LinkedIn</a> |
-            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a> |
-            <a href="mailto:maddyag123@gmail.com">maddyag123@gmail.com</a>
+            <a href="https://www.instagram.com/maddventure/" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2025 Maddy Grupper. All rights reserved.</p>
     </footer>
@@ -794,10 +831,10 @@
             const infoBox = document.getElementById('map-info-box');
             const infoImage = document.getElementById('info-box-image');
 
-            // Update content
-            document.getElementById('info-box-number').textContent = `Location #${number}`;
-            document.getElementById('info-box-title').textContent = location.name;
-            document.getElementById('info-box-date').textContent = location.date;
+            // Update content - combine date and name for title
+            document.getElementById('info-box-number').textContent = `${location.date} in ${location.name}`;
+            document.getElementById('info-box-title').textContent = ''; // Remove subtitle
+            document.getElementById('info-box-date').textContent = ''; // Remove date line
             document.getElementById('info-box-description').textContent = location.description;
 
             // Reset and set image
