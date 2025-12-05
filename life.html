@@ -179,35 +179,6 @@
             background: linear-gradient(135deg, #c8e6d3 0%, #e8f1eb 100%);
         }
 
-        /* Caption Overlay */
-        .caption-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            color: white;
-            padding: 2rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .featured-image-container:hover .caption-overlay {
-            transform: translateY(0);
-        }
-
-        .caption-overlay h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #c8e6d3;
-        }
-
-        .caption-overlay p {
-            font-size: 1rem;
-            line-height: 1.6;
-            opacity: 0.95;
-        }
-
         /* Fullscreen Button */
         .fullscreen-btn {
             position: absolute;
@@ -378,13 +349,6 @@
 
         .lightbox-close:hover {
             transform: scale(1.2);
-        }
-
-        .lightbox-caption {
-            color: white;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 1.1rem;
         }
 
         /* Map and Philosophy Section */
@@ -610,10 +574,6 @@
 
                 <img id="featured-image" class="featured-image" src="" alt="Climbing photo" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #c8e6d3 0%, #e8f1eb 100%)';">
 
-                <div class="caption-overlay">
-                    <h3 id="photo-location"></h3>
-                    <p id="photo-story"></p>
-                </div>
             </div>
 
             <!-- Thumbnail Strip -->
@@ -657,7 +617,6 @@
         <div class="lightbox-content" onclick="event.stopPropagation()">
             <button class="lightbox-close" onclick="closeLightbox()">×</button>
             <img id="lightbox-image" class="lightbox-image" src="" alt="">
-            <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
     </div>
 
@@ -821,8 +780,6 @@
             const featuredImg = document.getElementById('featured-image');
             featuredImg.style.display = 'block'; // Reset display in case it was hidden
             featuredImg.src = photo.src;
-            document.getElementById('photo-location').textContent = photo.location;
-            document.getElementById('photo-story').textContent = photo.story || '';
             document.getElementById('current-photo').textContent = index + 1;
 
             // Update active thumbnail
@@ -855,7 +812,6 @@
         function openLightbox() {
             const photo = validPhotos[currentPhotoIndex];
             document.getElementById('lightbox-image').src = photo.src;
-            document.getElementById('lightbox-caption').textContent = `${photo.location}${photo.story ? ' - ' + photo.story : ''}`;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
